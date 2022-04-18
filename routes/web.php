@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ComunidadeController;
 
 /*
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------Ø
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -30,3 +31,13 @@ Auth::routes();
 Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');
+
+//COMUDADES
+Route::group(["prefix" => "admin/comunidades"], function () {
+    Route::get("/", [ComunidadeController::class,"index"])->name("comunidades");
+    Route::get('/create', [ComunidadeController::class,"create"])->name('comunidades');
+    Route::post('/create', [ComunidadeController::class,"store"])->name('comunidades');
+    Route::get('/edit/{id}', [ComunidadeController::class,"edit"])->name('comunidades');
+    Route::put('/edit/{id}', [ComunidadeController::class,"update"])->name('comunidades');
+    Route::post('/delete', [ComunidadeController::class,"postDelete"])->name('comunidades');
+});
